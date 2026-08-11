@@ -6,6 +6,8 @@ metadata:
   namespace: production
 
 spec:
+  storageClassName: local-path
+
   accessModes:
     - ReadWriteOnce
 
