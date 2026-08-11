@@ -8,10 +8,14 @@ RUN npm install --omit=dev
 
 COPY . .
 
-RUN addgroup -S appgroup && \
-    adduser -S appuser -G appgroup
+# Create non-root user with explicit UID/GID
+RUN addgroup -S appgroup -g 10001 && \
+    adduser -S appuser -u 10001 -G appgroup
 
-USER appuser
+# Give ownership of application directory
+RUN chown -R 10001:10001 /app
+
+USER 10001
 
 EXPOSE 5000
 
